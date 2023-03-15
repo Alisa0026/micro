@@ -7,11 +7,13 @@
 
   <div id="layout-wrapeer">
     <div class="menu-content">
-      <p v-for="item in menuList" :key="item.name" class="menu-item"
-      @click="toRoute(item.props.routerBase)"
-      >{{ item.name }}</p>
+      <p v-for="item in menuList" :key="item.name" :class="{
+        'menu-item': true,
+        'item-select': item.name === appValue
+      }" @click="toRoute(item.props.routerBase, item.name)">{{ item.name
+}}</p>
     </div>
-    <div class="subapp-viewport"></div>
+    <div id="subapp-viewport"></div>
   </div>
 </template>
 <script>
@@ -20,14 +22,19 @@ import appsConfig from './micro_app';
 export default {
   data() {
     return {
-      menuList: []
+      menuList: [],
+      appValue: ''
     }
   },
   mounted() {
     this.menuList = appsConfig
   },
-  methods:{
-    toRoute(url){
+  methods: {
+    toRoute(url, key) {
+      if (this.appValue === key) {
+        return
+      }
+      this.appValue = key
       this.$router.push(url)
     }
   }
@@ -51,8 +58,14 @@ export default {
   width: 100px;
   height: 60px;
   line-height: 60px;
-  background: greenyellow;
+  /* background: greenyellow; */
   text-align: center;
+  cursor: pointer;
+  border: 1px solid;
+}
+
+.item-select {
+  background-color: yellowgreen;
 }
 
 nav {
