@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import App from './App.vue'
 import routes from './router'
 import store from './store'
+import actions from './action'
 
 Vue.use(VueRouter)
 
@@ -30,10 +31,12 @@ if (!window.__POWERED_BY_QIANKUN__) {
   render()
 }
 export async function bootstrap() {
-  console.log('[vue] app bootstraped');
+  console.log('[vue] 子应用 app bootstraped');
 }
 export async function mount(props) {
-  console.log('[vue] props from main framework', props);
+  console.log('[vue] 子应用 props from main framework', props)
+  // 接受主应用的props
+  actions.setActions(props);
   render(props)
 }
 

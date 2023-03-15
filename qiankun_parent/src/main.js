@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import { registerMicroApps, start } from 'qiankun';
 import appConfig from './micro_app';
+import action from './action'
 
 createApp(App).use(store).use(router).mount('#app')
 
@@ -15,17 +16,17 @@ registerMicroApps(appConfig, {
     },
     beforeMount: [
         app => {
-            console.log('[LifeCycle] before mount %c%s', 'color: green;', app.name);
+            console.log('[LifeCycle]主应用 before mount %c%s', 'color: green;', app.name);
         },
     ],
     afterMount: [
         app => {
-            console.log('[LifeCycle] after mount %c%s', 'color: green;', app.name);
+            console.log('[LifeCycle]主应用 after mount %c%s', 'color: green;', app.name);
         }
     ],
     afterUnmount: [
         app => {
-            console.log('[LifeCycle] after unmount %c%s', 'color: green;', app.name);
+            console.log('[LifeCycle]主应用 after unmount %c%s', 'color: green;', app.name);
         },
     ],
 });

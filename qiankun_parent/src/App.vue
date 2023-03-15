@@ -13,21 +13,31 @@
       }" @click="toRoute(item.props.routerBase, item.name)">{{ item.name
 }}</p>
     </div>
+    <p>当前人数：{{ peopleList.length }}</p>
     <div id="subapp-viewport"></div>
   </div>
 </template>
 <script>
 import appsConfig from './micro_app';
+import action from "./action";
 
 export default {
   data() {
     return {
       menuList: [],
-      appValue: ''
+      appValue: '',
+      peopleList: []
     }
   },
   mounted() {
     this.menuList = appsConfig
+
+    action.onGlobalStateChange((state) => {
+      console.log('主应用：全局状态发生改变');
+      // this.mes = state
+      this.peopleList = state.userInfo;
+      console.log(state);
+    }, true);
   },
   methods: {
     toRoute(url, key) {
